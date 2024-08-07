@@ -1,0 +1,66 @@
+# encoding: utf-8
+# 2024 R1
+SetScriptVersion(Version="24.1.144")
+system1 = GetSystem(Name="SYS")
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+system1.Copy(KeepConnections=True)
+favorites1 = EngData.LoadFavoriteItems()
+library1 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+library2 = EngData.OpenLibrary(
+    Name="Composite Materials",
+    Source="Composite_Materials.xml")
+library3 = EngData.OpenLibrary(
+    Name="Explicit Materials",
+    Source="Explicit_Materials.xml")
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+matl1 = engineeringData1.ImportMaterial(
+    Name="Titanium Alloy",
+    Source="General_Materials.xml")
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1.Edit()
+library4 = EngData.OpenLibrary(
+    Name="Additive Manufacturing Materials",
+    Source="Additive_Manufacturing_Materials.xml")
+library5 = EngData.OpenLibrary(
+    Name="ANSYS GRANTA Materials Data for Simulation (Sample)",
+    Source="Granta_Design_Typical_Materials.xml")
+library6 = EngData.OpenLibrary(
+    Name="General Non-linear Materials",
+    Source="General Materials Non-linear.xml")
+library7 = EngData.OpenLibrary(
+    Name="Thermal Materials",
+    Source="Thermal_Materials.xml")
+matl2 = engineeringData1.ImportMaterial(
+    Name="Carbon steel, 1020, annealed",
+    Source="Granta_Design_Typical_Materials.xml")
+modelComponent1.Refresh()
+model1.Edit()
+model1.Edit()
+model1.Exit()
+model1.Edit()
+modelComponent1.Update(AllDependencies=True)
+setupComponent1 = system1.GetComponent(Name="Setup")
+setupComponent1.Update(AllDependencies=True)
+system2 = GetSystem(Name="SYS 1")
+setupComponent2 = system2.GetComponent(Name="Setup")
+setupComponent2.Update(AllDependencies=True)
+system3 = GetSystem(Name="SYS 2")
+setupComponent3 = system3.GetComponent(Name="Setup")
+setupComponent3.Update(AllDependencies=True)
+model1.Edit()
+model1.Exit()
+model1.Edit()
+model1.Exit()
+system4 = GetSystem(Name="SYS 3")
+system4.Delete()
+system5 = GetSystem(Name="SYS 4")
+system5.Delete()
+system6 = GetSystem(Name="SYS 5")
+system6.Delete()
+system1.DisplayText = "STRESS ANALYSIS"
+Save(Overwrite=True)
+Save(Overwrite=True)
